@@ -17,11 +17,11 @@ DigiBus aims to provide people with a suitable alternative to purchasing bus pas
 
 <table>
   <tr>
-   <td align="center"><img src="" width="210px;" height="230px;" alt=""/><br /><sub><b>Jayesh Locharla</b></sub></a><br />
+   <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/jayesh.png" width="210px;" height="230px;" alt=""/><br /><sub><b>Jayesh Locharla</b></sub></a><br />
 </td>
-   <td align="center"><img src="" width="210px;" height="230px;"  alt=""/><br/><sub><b>Sayyed Mansoor Ahmed</b></sub></a><br />
+   <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/mansoor.png" width="210px;" height="230px;"  alt=""/><br/><sub><b>Sayyed Mansoor Ahmed</b></sub></a><br />
 </td>
-   <td align="center"><img src="" width="210px"; height="230px;" alt=""/><br /><sub><b>Pranav B Kashyap</b></sub></a><br />
+   <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/pranav.png" width="210px"; height="230px;" alt=""/><br /><sub><b>Pranav B Kashyap</b></sub></a><br />
 </td>
     </tr>
     </table>
