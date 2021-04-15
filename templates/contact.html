@@ -1,0 +1,60 @@
+{% extends "layout1.html" %}
+{% block content %}
+    <!-- Form -->
+    <div class="mx-auto" style="max-width: 700px;">
+
+        <!-- Breadcrumb -->
+        <div class="mt-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="content-section">
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Contact Us</legend>
+                    <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ form.fullname.label(class="form-control-label") }}
+                        {{ form.fullname(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ form.number.label(class="form-control-label") }}
+                        {{ form.number(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ form.email.label(class="form-control-label") }}
+    
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
+                        {% endif %} 
+                    </div>
+                    <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ form.query.label(class="form-control-label") }}
+                        {{ form.query(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-check mb-3">
+                        {{ form.remember(class="form-check-input") }}
+                        {{ form.remember.label(class="form-check-label") }}
+                    </div>
+                </fieldset>
+                <div class="form-group mb-3">
+                    {{ form.submit(class="btn btn-outline-success") }}
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock content %}
+ 

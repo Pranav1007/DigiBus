@@ -1,0 +1,91 @@
+{% extends "layout1.html" %}
+{% block content %}
+<div class="mx-auto" style="max-width: 700px;">
+    <!-- Breadcrumb -->
+    <div class="mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sign Up</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                <div class="form-group shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.fullname.label(class="form-control-label") }}
+                    {{ form.fullname(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.username.label(class="form-control-label") }}
+                    
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                    {% endif %}       
+                </div>
+                <div class="form-group shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.email.label(class="form-control-label") }}
+
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %} 
+                </div>
+                <div class="form-group shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.password.label(class="form-control-label") }}
+
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %} 
+                </div>
+                <div class="form-group shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                    {% endif %} 
+                </div>
+            </feildset>
+            <div class="form-group mb-3">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" herf="{{ url_for('login') }}">Login</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}

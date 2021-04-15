@@ -1,0 +1,36 @@
+{% extends "layout2.html" %}
+{% block content %}
+<!-- Breadcrumb -->
+<div class="mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">TicketBooking</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- search bar -->
+<div class="container mt-4">
+  <form class="d-flex">
+    <input class="form-control mx-2" type="search" placeholder="From" aria-label="Search">
+    <img src="{{ url_for('static', filename='transferarrow.png') }}" height="30" class="d-inline-block align-top">
+    <input class="form-control mx-2" type="search" placeholder="To" aria-label="Search">
+    <input class="form-control mx-2" type="search" placeholder="Date: dd/mm/yyyy" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+
+<!-- cards -->
+<div class="mt-4">
+  {% for post in posts %}
+  <div class="shadow-sm p-3 mb-5 bg-body rounded">
+    <h4>{{ post.title }}</h4>
+    <p>On :{{ post.date_posted }}</p>
+    <p>By :{{ post.author }} </p>
+    <a href="#"><button class="btn btn-outline-primary mx-2">Select Seats</button></a>
+  </div>
+  
+  {% endfor %}
+</div>
+{% endblock content %}

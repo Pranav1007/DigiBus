@@ -1,0 +1,50 @@
+{% extends "layout2.html" %}
+{% block content %}
+<!-- Breadcrumb -->
+<div class="mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ url_for('passbooking') }}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Pass Booking</li>
+    </ol>
+  </nav>
+</div>
+
+    <div class="content-section">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Pass Booking</legend>
+                <div class="shadow-sm p-3 mb-3 bg-body rounded">
+                    {{ form.city.label(class="form-control-label") }}
+                    {{ form.city(class="form-control form-control-lg") }}      
+                </div>
+                <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                    {{ form.fromaddress.label(class="form-control-label") }}
+                    {{ form.fromaddress(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                    {{ form.toaddress.label(class="form-control-label") }}
+                    {{ form.toaddress(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group shadow-sm p-3 mb-5 bg-body rounded">
+                    {{ form.busnumber.label(class="form-control-label") }}
+                    {{ form.busnumber(class="form-control form-control-lg") }}
+                </div>
+                <div class="shadow-sm p-3 mb-3 bg-body rounded">
+                    <label for="exampleFormControlName1" class="form-label">Pass Type :</label>
+                    <select name = "dropdown" type="text" class="form-control" id="exampleFormControlName1">
+                        <option value = "0" selected disabled>---</option>
+                        <option value = "Monthly">Monthly</option>
+                        <option value = "Quaterly">Quaterly</option>
+                        <option value = "Half-yearly">Half-yearly</option>                             
+                        <option value = "Annual">Annual</option>
+                     </select>        
+                </div>
+            </fieldset>
+            <div class="form-group mb-3">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
