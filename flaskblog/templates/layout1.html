@@ -58,16 +58,33 @@
 
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
-                    <a href="{{ url_for('login') }}"><button class="btn btn-outline-success mx-2">Login</button></a>
-                    <a href="{{ url_for('signup') }}"><button class="btn btn-outline-success">SignUp</button></a>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ url_for('static', filename='profile.png') }}" height="30" class="d-inline-block align-top">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('account') }}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('support') }}">Support</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <a href="{{ url_for('login') }}"><button class="btn btn-outline-success mx-2">Login</button></a>
+                        <a href="{{ url_for('signup') }}"><button class="btn btn-outline-success">SignUp</button></a>
+                    {% endif %}                    
                 </div>
             </div>
         </div>
     </nav>
 
     
-
-    <main role="main">
+    <div class="mx-auto my-4">...</div>
+    <main role="main" class="container">
         <div class="row">
             <div class="col-md">
                 {% with messages = get_flashed_messages(with_categories=true) %}
