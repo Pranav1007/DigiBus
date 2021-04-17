@@ -1,5 +1,5 @@
 <h1 align="center"> DigiBus - Go Digital </h1>
-<h3 align="center"> Official Fourth Semester SEPM Project Repository <h3>
+<h3 align="center"> Official Fourth Semester SEPM Project Repository </h3>
   
 
 DigiBus is an intuitive web-based application that provides a user-friendly platform for all passengers to book tickets and buy bus passes online.
