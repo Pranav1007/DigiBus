@@ -1,14 +1,16 @@
 {% extends "layout1.html" %}
 {% block content %}
-<!-- Breadcrumb -->
-<div class="mt-4">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ url_for('passbooking') }}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Pass Booking</li>
-    </ol>
-  </nav>
-</div>
+
+<div class="mx-auto" style="max-width: 700px;">
+    <!-- Breadcrumb -->
+    <div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('passbooking') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Pass Booking</li>
+        </ol>
+    </nav>
+    </div>
 
     <div class="content-section">
         <form action="" method="POST">
@@ -39,7 +41,7 @@
                         <option value = "Quaterly">Quaterly</option>
                         <option value = "Half-yearly">Half-yearly</option>                             
                         <option value = "Annual">Annual</option>
-                     </select>        
+                    </select>        
                 </div>
             </fieldset>
             <div class="form-group mb-3">
@@ -47,4 +49,5 @@
             </div>
         </form>
     </div>
+</div>
 {% endblock content %}

@@ -1,14 +1,26 @@
 {% extends "layout1.html" %}
 {% block content %}
-<div class="content-section">
-    <div class="media">
-      <img class="rounded-circle account-img" src="{{ image_file }}">
-      <div class="media-body">
-        <h2 class="account-heading">{{ current_user.username }}</h2>
-        <p class="text-secondary">{{ current_user.email }}</p>
-      </div>
-        <!-- FORM HERE -->
+<div class="container">
+<!-- Breadcrumb -->
+  <div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Account</li>
+        </ol>
+    </nav>
+  </div>
+
+  <div class="card mx-auto" style="width: 32rem;">
+    <h5 class="card-header">Account</h5>
+    <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 16rem;">
+    <div class="card-body text-center my-5">
+      <h3 class="">Details :</h3>
+      <h3 class="account-heading text-muted">Username : {{ current_user.username }}</h3>
+      <p class="text-secondary fs-5">Email Id : {{ current_user.email }}</p>
     </div>
-  
-  
+  </div>
+
+</div>
+
 {% endblock content %}

@@ -12,6 +12,10 @@
 
     <link rel="stylesheet" type="text/css" herf="{{ url_for('static', filename='main.css') }}">
 
+    <style>
+        body { padding-top: 62px; }
+    </style>
+
     {% if title %}
     <title>DigiBus - {{ title }}</title>
     <link rel="shortcut icon" href="static/logo2.png">
@@ -74,8 +78,10 @@
                             </ul>
                         </li>
                     {% else %}
-                        <a href="{{ url_for('login') }}"><button class="btn btn-outline-success mx-2">Login</button></a>
-                        <a href="{{ url_for('signup') }}"><button class="btn btn-outline-success">SignUp</button></a>
+                        <div class="my-1">
+                            <a href="{{ url_for('login') }}"><button class="btn btn-outline-success mx-2">Login</button></a>
+                            <a href="{{ url_for('signup') }}"><button class="btn btn-outline-success">SignUp</button></a>
+                        </div>
                     {% endif %}                    
                 </div>
             </div>
@@ -83,8 +89,8 @@
     </nav>
 
     
-    <div class="mx-auto my-4">...</div>
-    <main role="main" class="container">
+
+    <main role="main" class="">
         <div class="row">
             <div class="col-md">
                 {% with messages = get_flashed_messages(with_categories=true) %}
