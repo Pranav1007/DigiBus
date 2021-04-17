@@ -35,9 +35,6 @@ def contact():
 def support():
     return render_template('support.html', title='Support')
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html', title='Profile')
 
 @app.route('/ticketbooking')
 @login_required
