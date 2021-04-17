@@ -1,3 +1,6 @@
+import os
+import secrets
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Pass
@@ -17,10 +20,26 @@ posts = [
     }
 ]
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    
+    return picture_fn
+
 
 @app.route('/')
 @app.route('/home',  methods=['GET', 'POST'])
 def home():
+    if current_user.is_authenticated:
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template( 'index.html', title='Book Tickets Online', image_file=image_file)
     return render_template('index.html', title='Book Tickets Online')
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -29,17 +48,20 @@ def contact():
     if form.validate_on_submit():
         flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
         return redirect(url_for('home'))
-    return render_template('contact.html', title='Contact Us', form=form)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('contact.html', title='Contact Us', form=form, image_file=image_file)
 
 @app.route('/support')
 def support():
-    return render_template('support.html', title='Support')
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('support.html', title='Support', image_file=image_file)
 
 
 @app.route('/ticketbooking')
 @login_required
 def ticketbooking():
-    return render_template('ticketbooking.html', posts=posts, title='Ticket Booking')
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('ticketbooking.html', posts=posts, title='Ticket Booking', image_file=image_file)
 
 @app.route('/passbooking', methods=['GET', 'POST'])
 @login_required
@@ -48,7 +70,8 @@ def passbooking():
     if form.validate_on_submit():
         flash(f'Continue your payment', 'primary')
         return redirect(url_for('payment'))
-    return render_template('passbooking.html', title='Pass Booking', form=form)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -89,6 +112,9 @@ def logout():
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -103,4 +129,5 @@ def account():
 
 @app.route('/payment')
 def payment():
-    return render_template('payment.html', title='Payment')
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('payment.html', title='Payment', image_file=image_file)
