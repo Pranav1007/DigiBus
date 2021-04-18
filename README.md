@@ -27,7 +27,7 @@ $ pip install -r requirements.txt
 - Run the run.py file now
 To run the file
 ```python
-$ python3 run.py
+$ python run.py
 ```
 
 ## Tech Stacks:
