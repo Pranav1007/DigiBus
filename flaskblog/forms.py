@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateField
 from flaskblog.models import User
@@ -39,9 +39,9 @@ class ContactForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class PassbookingForm(FlaskForm):
-    city = StringField('City :', validators=[DataRequired()])
-    fromaddress = StringField('From :', validators=[DataRequired()])
-    toaddress = StringField('TO :', validators=[DataRequired()])
+    city = SelectField('City :', validators=[DataRequired()], choices=[(1,"Chennai")])
+    fromaddress = SelectField('From :', validators=[DataRequired()], choices=[(1,"Potheri"),(2,"Kattangulathur")])
+    toaddress = SelectField('To :', validators=[DataRequired()], choices=[(1,"Tambaram"),(2,"Chennai Egmore")])
     date = DateField('Date :', validators=[DataRequired()])
     submit = SubmitField('Proceed to Payment')
 
