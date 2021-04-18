@@ -6,11 +6,6 @@ DigiBus is an intuitive web-based application that provides a user-friendly plat
 DigiBus aims to provide people with a suitable alternative to purchasing bus passes and tickets offline and aims to eliminate specific fundamental and glaring issues people face while doing the same.
 
 ## How to Use the Website:
-- All the [requirements](requirements.txt) and dependencies need to be installed. 
-To install run:
-```python
-$ pip install -r requirements.txt
-```
 - Clone the GitHub repository
 To clone run:
 ```python
@@ -21,6 +16,12 @@ $ git clone git@github.com:Pranav1007/DigiBus.git
 To enter run
 ```python
 $ cd DigiBus
+```
+
+- All the [requirements](requirements.txt) and dependencies need to be installed. 
+To install run:
+```python
+$ pip install -r requirements.txt
 ```
 
 - Run the run.py file now
