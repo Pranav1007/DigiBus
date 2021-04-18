@@ -133,6 +133,7 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 @app.route('/payment')
+@login_required
 def payment():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('payment.html', title='Payment', image_file=image_file)
