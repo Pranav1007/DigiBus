@@ -3,6 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.fields.html5 import DateField
 from flaskblog.models import User
 
 
@@ -41,7 +42,7 @@ class PassbookingForm(FlaskForm):
     city = StringField('City :', validators=[DataRequired()])
     fromaddress = StringField('From :', validators=[DataRequired()])
     toaddress = StringField('TO :', validators=[DataRequired()])
-    busnumber = StringField('Bus Number :', validators=[DataRequired()])
+    date = DateField('Date :', validators=[DataRequired()])
     submit = SubmitField('Proceed to Payment')
 
 class UpdateAccountForm(FlaskForm):

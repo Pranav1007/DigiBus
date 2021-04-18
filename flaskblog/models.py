@@ -10,7 +10,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    # fullname = db.Column(db.String(30), nullable=False)
+    fullname = db.Column(db.String(30), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default = 'default.jpeg')
@@ -18,10 +18,11 @@ class User(db.Model, UserMixin):
     passes = db.relationship('Pass', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}','{self.email}','{self.image_file}')"
+        return f"User('{self.fullname}','{self.username}','{self.email}','{self.image_file}')"
 
 class Pass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(100), nullable=False)
     source = db.Column(db.String(100), nullable=False)
     dest = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
