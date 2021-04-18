@@ -16,6 +16,7 @@
       <h5 class="card-header">Account</h5>
       <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 10rem;">
       <div class="card-body text-center my-5">
+        <h2 class="account-heading text-muted">{{ current_user.fullname }}</h2>  
         <h3 class="account-heading text-muted">{{ current_user.username }}</h3>
         <p class="text-secondary fs-5">{{ current_user.email }}</p>
       </div>

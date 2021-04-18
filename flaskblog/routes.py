@@ -1,7 +1,7 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Pass
 from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, PassbookingForm, UpdateAccountForm
@@ -68,6 +68,9 @@ def ticketbooking():
 def passbooking():
     form = PassbookingForm()
     if form.validate_on_submit():
+        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id)
+        db.session.add(user_pass)
+        db.session.commit()
         flash(f'Continue your payment', 'primary')
         return redirect(url_for('payment'))
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
@@ -80,7 +83,7 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(fullname=form.fullname.data, username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created. You can now login', 'success')

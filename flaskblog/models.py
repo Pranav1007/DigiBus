@@ -26,7 +26,7 @@ class Pass(db.Model):
     source = db.Column(db.String(100), nullable=False)
     dest = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False, default=200)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
