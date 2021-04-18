@@ -46,6 +46,7 @@ class PassbookingForm(FlaskForm):
     submit = SubmitField('Proceed to Payment')
 
 class UpdateAccountForm(FlaskForm):
+    fullname = StringField('Fullname', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=18)])
     email = StringField('Email ID',validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
