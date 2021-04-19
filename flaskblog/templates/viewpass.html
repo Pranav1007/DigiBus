@@ -16,11 +16,13 @@
       <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 10rem;">
       <div class="card-body text-center my-5">
         {% if pass_det %}
-          <h2 class="account-heading text-muted">{{ pass_det.city }}</h2>  
-          <h3 class="account-heading text-muted">{{ pass_det.source }}</h3>
-          <p class="text-secondary fs-5">{{ pass_det.dest }}</p>
-          <h3 class="account-heading text-muted">{{ pass_det.date.date() }}</h3>
-          <h3 class="account-heading text-muted">{{ pass_det.pass_type }}</h3>
+          {% for pass in pass_det %}
+          <h2 class="account-heading text-muted">{{ pass.city }}</h2>  
+          <h3 class="account-heading text-muted">{{ pass.source }}</h3>
+          <p class="text-secondary fs-5">{{ pass.dest }}</p>
+          <h3 class="account-heading text-muted">{{ pass.date.date() }}</h3>
+          <h3 class="account-heading text-muted">{{ pass.pass_type }}</h3>
+          {% endfor %}
         {% endif %}
       </div>
     </div>

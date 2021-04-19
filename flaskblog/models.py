@@ -31,4 +31,4 @@ class Pass(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"User Pass('{self.source}', '{self.dest}', '{self.date}')"
+        return f"User Pass('{self.source}', '{self.dest}', '{self.date}', '{self.user_id})"
