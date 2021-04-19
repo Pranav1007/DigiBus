@@ -166,5 +166,12 @@ def viewpass():
         flash('No Passes Booked', 'danger')
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=[])
+
+@app.route('/terms_privacy')
+def terms_privacy():
+    if current_user.is_authenticated:
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template( 'terms_privacy.html', title='Terms and Privacy', image_file=image_file)
+    return render_template('terms_privacy.html', title='Terms and Privacy')
         
         
