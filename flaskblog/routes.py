@@ -68,7 +68,7 @@ def ticketbooking():
 def passbooking():
     form = PassbookingForm()
     if form.validate_on_submit():
-        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id)
+        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data)
         db.session.add(user_pass)
         db.session.commit()
         flash(f'Continue your payment', 'primary')

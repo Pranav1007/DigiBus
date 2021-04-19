@@ -27,6 +27,7 @@ class Pass(db.Model):
     dest = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Integer, nullable=False, default=200)
+    pass_type = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
