@@ -46,11 +46,17 @@ def home():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
-    if form.validate_on_submit():
-        flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
-        return redirect(url_for('home'))
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('contact.html', title='Contact Us', form=form, image_file=image_file)
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
+            return redirect(url_for('home'))
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template('contact.html', title='Contact Us', form=form, image_file=image_file)
+    else:
+        if form.validate_on_submit():
+            flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
+            return redirect(url_for('home'))
+        return render_template('contact.html', title='Contact Us', form=form)
 
 @app.route('/support')
 def support():
