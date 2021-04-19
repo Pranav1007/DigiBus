@@ -1,6 +1,7 @@
 from datetime import datetime
 from flaskblog import db, login_manager
 from flask_login import UserMixin
+now = datetime.now()
 
 
 @login_manager.user_loader
@@ -28,6 +29,7 @@ class Pass(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Integer, nullable=False, default=200)
     pass_type = db.Column(db.String(100), nullable=False)
+    booking_date = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

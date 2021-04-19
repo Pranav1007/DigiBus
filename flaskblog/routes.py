@@ -1,6 +1,7 @@
 import os
 import secrets
 from PIL import Image
+import dateutil.relativedelta
 from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Pass
@@ -68,10 +69,19 @@ def ticketbooking():
 def passbooking():
     form = PassbookingForm()
     if form.validate_on_submit():
+        if(form.pass_type.data == "Monthly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
+        if(form.pass_type.data == "Quarterly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+4)
+        if(form.pass_type.data == "Half-Yearly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+6)
+        if(form.pass_type.data == "Annualy"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
+        flash(end_date)
         user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data)
         db.session.add(user_pass)
         db.session.commit()
-        flash(f'Continue your payment', 'primary')
+        flash(f'Continue your payment', 'success')
         return redirect(url_for('payment'))
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
@@ -145,7 +155,7 @@ def viewpass():
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass)
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id)
     else:
         flash('No Passes Booked', 'danger')
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)

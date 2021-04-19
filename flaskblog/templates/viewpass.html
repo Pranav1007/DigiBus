@@ -21,14 +21,20 @@
             <div class="card-body my-2">
               <div class="row">
                 <div class="col-sm">
-                  <p class="fw-bold">City</p>  
+                  <p class="fw-bold">City</p>
+                  <p class="fw-bold">Pass ID</p>  
                   <p class="fw-bold">From</p>
                   <p class="fw-bold">To</p>
                   <p class="fw-bold">Valid From</p>
+                  <p class="fw-bold">Valid Till</p>
                   <p class="fw-bold">Pass Type</p>
+                  <p class="fw-bold">Booking Time</p>
                 </div>
                 <div class="col-sm">
                   <p class="fw-bold">:</p>  
+                  <p class="fw-bold">:</p> 
+                  <p class="fw-bold">:</p>
+                  <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
@@ -36,10 +42,13 @@
                 </div>
                 <div class="col-sm">
                   <p class="fw-normal">{{ pass.city }}</p>  
+                  <p class="fw-normal">{{ pass.id + 301975291 + user_id }}</p>
                   <p class="fw-normal">{{ pass.source }}</p>
                   <p class="fw-normal">{{ pass.dest }}</p>
                   <p class="fw-normal">{{ pass.date.date() }}</p>
+                  <p class="fw-normal">{{ pass.date.date() }}</p>
                   <p class="fw-normal">{{ pass.pass_type }}</p>
+                  <p class="fw-normal">{{ pass.booking_date.strftime("%Y-%m-%d %H:%M:%S") }}</p>
                 </div>
               </div>
             </div>
