@@ -137,3 +137,9 @@ def account():
 def payment():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('payment.html', title='Payment', image_file=image_file)
+
+@app.route('/viewpass')
+@login_required
+def viewpass():
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('viewpass.html', title='Pass Details', image_file=image_file)

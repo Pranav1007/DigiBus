@@ -1,0 +1,25 @@
+{% extends "layout1.html" %}
+{% block content %}
+<div class="container">
+<!-- Breadcrumb -->
+  <div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Pass Details</li>
+        </ol>
+    </nav>
+  </div>
+
+    <div class="card mx-auto" style="width: 40rem;">
+      <h5 class="card-header">Pass Details</h5>
+      <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 10rem;">
+      <div class="card-body text-center my-5">
+        <h2 class="account-heading text-muted">{{ current_user.fullname }}</h2>  
+        <h3 class="account-heading text-muted">{{ current_user.username }}</h3>
+        <p class="text-secondary fs-5">{{ current_user.email }}</p>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}
