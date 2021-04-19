@@ -39,10 +39,11 @@ class ContactForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class PassbookingForm(FlaskForm):
-    city = SelectField('City :', validators=[DataRequired()], choices=[(1,"Chennai")])
-    fromaddress = SelectField('From :', validators=[DataRequired()], choices=[(1,"Potheri"),(2,"Kattangulathur")])
-    toaddress = SelectField('To :', validators=[DataRequired()], choices=[(1,"Tambaram"),(2,"Chennai Egmore")])
+    city = SelectField('City :', validators=[DataRequired()], choices=[("Chennai","Chennai")])
+    fromaddress = SelectField('From :', validators=[DataRequired()], choices=[("Potheri","Potheri"),("Kattangulathur","Kattangulathur")])
+    toaddress = SelectField('To :', validators=[DataRequired()], choices=[("Tambaram","Tambaram"),("Chennai Egmore","Chennai Egmore")])
     date = DateField('Date :', validators=[DataRequired()])
+    pass_type = SelectField('To :', validators=[DataRequired()], choices=[("Monthly"),("Quarterly"),("Half-Yearly"),("Annualy")])
     submit = SubmitField('Proceed to Payment')
 
 class UpdateAccountForm(FlaskForm):

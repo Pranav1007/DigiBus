@@ -15,9 +15,10 @@
       <h5 class="card-header">Pass Details</h5>
       <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 10rem;">
       <div class="card-body text-center my-5">
-        <h2 class="account-heading text-muted">{{ current_user.fullname }}</h2>  
-        <h3 class="account-heading text-muted">{{ current_user.username }}</h3>
-        <p class="text-secondary fs-5">{{ current_user.email }}</p>
+          <h2 class="account-heading text-muted">{{ pass_det.city }}</h2>  
+          <h3 class="account-heading text-muted">{{ pass_det.source }}</h3>
+          <p class="text-secondary fs-5">{{ pass_det.dest }}</p>
+          <h3 class="account-heading text-muted">{{ pass_det.date.date() }}</h3>
       </div>
     </div>
 </div>

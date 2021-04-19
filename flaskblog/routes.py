@@ -141,5 +141,15 @@ def payment():
 @app.route('/viewpass')
 @login_required
 def viewpass():
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('viewpass.html', title='Pass Details', image_file=image_file)
+    user = User.query.get(current_user.id)
+    user_pass = Pass.query.get(user.id)
+    if user_pass:
+        flash(Pass.query.get(user.id))
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass)
+    else:
+        flash('No Passes Booked', 'danger')
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=[])
+        
+        
