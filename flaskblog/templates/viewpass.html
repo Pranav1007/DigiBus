@@ -17,7 +17,7 @@
       {% if pass_det %}
         {% for pass in pass_det %}
           <div class="card mx-auto my-4" style="width: 35rem;">
-            <h5 class="card-header text-center">Pass</h5>
+            <h5 class="card-header text-left">Pass Details</h5>
             <div class="card-body my-2">
               <div class="row">
                 <div class="col-sm">
@@ -27,12 +27,14 @@
                   <p class="fw-bold">To</p>
                   <p class="fw-bold">Valid From</p>
                   <p class="fw-bold">Valid Till</p>
+                  <p class="fw-bold">Rate</p>
                   <p class="fw-bold">Pass Type</p>
                   <p class="fw-bold">Booking Time</p>
                 </div>
                 <div class="col-sm">
                   <p class="fw-bold">:</p>  
                   <p class="fw-bold">:</p> 
+                  <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
                   <p class="fw-bold">:</p>
@@ -47,9 +49,15 @@
                   <p class="fw-normal">{{ pass.dest }}</p>
                   <p class="fw-normal">{{ pass.date.date() }}</p>
                   <p class="fw-normal">{{ pass.date.date() }}</p>
+                  <p class="fw-normal">Rs {{ pass.price }}</p>
                   <p class="fw-normal">{{ pass.pass_type }}</p>
                   <p class="fw-normal">{{ pass.booking_date.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+                  
+                  <!--Pass.query.filter_by(id=pass.id).delete()-->
                 </div>
+                <div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure?')"><button class="btn btn-outline-danger">Delete</button></a></div>
+                <a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount will be added to your DigiBus Wallet')" >Delete Record</a>
+
               </div>
             </div>
           </div>

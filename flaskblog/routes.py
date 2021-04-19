@@ -77,14 +77,18 @@ def passbooking():
     if form.validate_on_submit():
         if(form.pass_type.data == "Monthly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
+            price = 30*5 + 30*3 + current_user.id
         if(form.pass_type.data == "Quarterly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+4)
+            price = 120*5 + 10*5 + current_user.id
         if(form.pass_type.data == "Half-Yearly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+6)
+            price = 180*5 + 10*5 + current_user.id
         if(form.pass_type.data == "Annualy"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
+            price = 366*5 + 10*5 + current_user.id
         flash(end_date)
-        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data)
+        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
         db.session.add(user_pass)
         db.session.commit()
         flash(f'Continue your payment', 'success')
@@ -160,12 +164,14 @@ def viewpass():
     user = User.query.get(current_user.id)
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
+        flash(Pass.query.filter_by(id=4).all())
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id)
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
     else:
         flash('No Passes Booked', 'danger')
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=[])
+    return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=[], Pass=Pass)
 
 @app.route('/terms_privacy')
 def terms_privacy():
@@ -173,5 +179,14 @@ def terms_privacy():
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template( 'terms_privacy.html', title='Terms and Privacy', image_file=image_file)
     return render_template('terms_privacy.html', title='Terms and Privacy')
-        
+
+@app.route('/delete/<int:id>')
+@login_required
+def delete(id):
+    Pass.query.filter_by(id=id).delete()
+    db.session.commit()
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return redirect('/viewpass')
+
+
         
