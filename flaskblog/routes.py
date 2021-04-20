@@ -9,6 +9,8 @@ from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, Passbookin
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 
+price_pay = 0
+
 posts = [
     {
         'author': 'Jayesh Travels',
@@ -71,30 +73,7 @@ def ticketbooking():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('ticketbooking.html', posts=posts, title='Ticket Booking', image_file=image_file)
 
-@app.route('/passbooking', methods=['GET', 'POST'])
-@login_required
-def passbooking():
-    form = PassbookingForm()
-    if form.validate_on_submit():
-        if(form.pass_type.data == "Monthly"):
-            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
-            price = 30*5 + 30*3 + current_user.id
-        if(form.pass_type.data == "Quarterly"):
-            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+4)
-            price = 120*5 + 10*5 + current_user.id
-        if(form.pass_type.data == "Half-Yearly"):
-            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+6)
-            price = 180*5 + 10*5 + current_user.id
-        if(form.pass_type.data == "Annualy"):
-            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
-            price = 366*5 + 10*5 + current_user.id
-        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, expiry=end_date, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
-        db.session.add(user_pass)
-        db.session.commit()
-        flash(f'Continue your payment', 'primary')
-        return redirect(url_for('buypass'))
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -192,6 +171,34 @@ def delete(id):
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return redirect('/viewpass')
 
+@app.route('/passbooking', methods=['GET', 'POST'])
+@login_required
+def passbooking():
+    form = PassbookingForm()
+    user = User.query.get(current_user.id)
+    if form.validate_on_submit():
+        global price_pay
+        if(form.pass_type.data == "Monthly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
+            price = 30*5 + 30*3 + current_user.id
+        if(form.pass_type.data == "Quarterly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+4)
+            price = 120*5 + 10*5 + current_user.id
+        if(form.pass_type.data == "Half-Yearly"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+6)
+            price = 180*5 + 10*5 + current_user.id
+        if(form.pass_type.data == "Annualy"):
+            end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
+            price = 366*5 + 10*5 + current_user.id
+        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, expiry=end_date, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
+        price_pay = price
+        db.session.add(user_pass)
+        db.session.commit()
+        flash(f'Continue your payment', 'primary')
+        return redirect('buypass')
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
+
 @app.route('/wallet')
 @login_required
 def wallet():
@@ -204,5 +211,35 @@ def wallet():
 @login_required
 def buypass():
     user = User.query.get(current_user.id)
+    pass_det = Pass.query.order_by(Pass.id.desc()).all()[0]
+    global price_pay
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user)
+    return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user, amount=price_pay)
+
+@app.route('/confirm')
+@login_required
+def confirm():
+    user = User.query.get(current_user.id)
+    user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+    global price_pay    
+    if current_user.wallet < price_pay :
+        flash("Insufficient Balance Please Refill your wallet","danger")
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        return redirect('wallet')
+    current_user.wallet = current_user.wallet - price_pay
+    db.session.commit()
+    flash("Payment Successful ","success")
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return redirect('/viewpass')
+
+@app.route('/cancel')
+@login_required
+def cancel():
+    user = User.query.get(current_user.id)
+    user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+    pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+    Pass.query.filter_by(id=pass_id).delete()
+    db.session.commit()
+    return redirect('home')

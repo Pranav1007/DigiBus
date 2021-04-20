@@ -10,6 +10,7 @@
                     <p class="fw-bold">Name</p>
                     <p class="fw-bold">Username</p>  
                     <p class="fw-bold">Email</p>
+                    <p class="fw-bold">Amount to be paid</p>
                     <p class="fw-bold">Wallet Balance</p>
                 </div>
                 <div class="col-sm">
@@ -17,18 +18,21 @@
                     <p class="fw-bold">:</p> 
                     <p class="fw-bold">:</p>
                     <p class="fw-bold">:</p>
+                    <p class="fw-bold">:</p>
                 </div>
                 <div class="col-sm">
                     <p class="fw-normal">{{ user.fullname }}</p>  
                     <p class="fw-normal">{{ user.username }}</p>
                     <p class="fw-normal">{{ user.email }}</p>
+                    <p class="fw-normal">Rs. {{ amount  }}</p>
                     <p class="fw-normal">Rs. {{ user.wallet }}</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="mx-auto my-4">
-            <a class="mx-2" href="#"><button class="btn btn-outline-success">Pay with Wallet</button></a>
+            <a class="mx-2" href="{{ url_for('cancel') }}"><button class="btn btn-outline-success">Cancel Transaction</button></a>
+            <a class="mx-2" href="{{ url_for('confirm') }}"><button class="btn btn-outline-success">Pay with Wallet</button></a>
             <a class="mx-2" href="{{ url_for('payment') }}"><button class="btn btn-outline-success">Add Money</button></a>
     </div>
 </div>
