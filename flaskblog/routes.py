@@ -91,8 +91,8 @@ def passbooking():
         user_pass = Pass(city=form.city.data, source=form.fromaddress.data, expiry=end_date, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
         db.session.add(user_pass)
         db.session.commit()
-        flash(f'Continue your payment', 'success')
-        return redirect(url_for('payment'))
+        flash(f'Continue your payment', 'primary')
+        return redirect(url_for('buypass'))
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
 
@@ -199,3 +199,10 @@ def wallet():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     #return render_template('wallet.html', title='Wallet Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
     return render_template('wallet.html', title='Wallet Details', image_file=image_file, user=user)
+
+@app.route('/buypass')
+@login_required
+def buypass():
+    user = User.query.get(current_user.id)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user)
