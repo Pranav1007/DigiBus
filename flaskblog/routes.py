@@ -164,7 +164,6 @@ def viewpass():
     user = User.query.get(current_user.id)
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
-        flash(Pass.query.filter_by(id=4).all())
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
     else:

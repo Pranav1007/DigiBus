@@ -75,7 +75,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="return confirm('Are you sure?')">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
