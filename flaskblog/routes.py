@@ -242,4 +242,5 @@ def cancel():
     pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
     Pass.query.filter_by(id=pass_id).delete()
     db.session.commit()
-    return redirect('home')
+    flash("Transaction canceled by User","danger")
+    return redirect('passbooking')
