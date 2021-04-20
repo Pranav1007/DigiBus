@@ -1,12 +1,135 @@
 {% extends "layout1.html" %}
 {% block content %}
-<!-- Breadcrumb -->
-<div class="mt-4">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Support</li>
-    </ol>
-  </nav>
+<div class="mx-auto" style="max-width: 1000px;">
+  <!-- Breadcrumb -->
+  <div class="mt-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Support</li>
+      </ol>
+    </nav>
+  </div>
+
+
+  <h5 class="my-4">GENERAL</h5>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Why DigiBus for online bus ticket booking?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <h6>There are several reasons to book a bus ticket through DigiBus:</h6>
+          <ul>
+            <li>DigiBus provides you the convenience to book bus from your home/ city.</li>
+            <li>DigiBus offers a wide variety of bus types by numerous bus operators on your selected route</li>
+            <li>You can see an e-pass in viewpass page.</li>
+            <li>It’s the best platform for booking cheap bus tickets and passes.</li>
+            <li>Cancelling option is available with DigiBus.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="my-4">TICKET-RELATED</h5>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Do I need a print out of my bus ticket to board a bus?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>No, you don’t need a print. After booking bus tickets online, you can download an m-ticket or e-ticket on your mobile and show while boarding the bus. It is recommended to carry any government id or state approved id to verify your identity.</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          What is a PNR number on the ticket?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>PNR stands for ‘Passenger Name Record.’ A PNR number on the m-ticket or e-ticket has 10 digits.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="my-4">PAYMENT-RELATED</h5>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          What are the payment methods for booking a bus ticket online on DigiBus?
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>DigiBus offers a wide variety of payment options to book a bus online. One can pay for the tickets via credit card, debit card and DigiBus Wallet.</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          What different currencies does DigiBus support for payments?
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>We currently support INR. We are adding support for other currencies soon!</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Is payment on DigiBus safe?
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>DigiBus has the highest security standards and keeps your information and purchases completely safe and secure. Please be assured that your payment is very well secured.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="my-4">CANCELLATION-RELATED</h5>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSeven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Can I cancel my bus ticket?
+        </button>
+      </h2>
+      <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>Yes, you can cancel your bus ticket booking. Sign in to see your trips to cancel on DigiBus website on desktop and on mobile. Enter your ticket number and email id and follow the cancelation procedure. You can also cancel your ticket through the Self Help tool</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="my-4">REFUND-RELATED</h5>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingEignt">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEignt" aria-expanded="false" aria-controls="collapseEignt">
+          Can I get a refund on ticket cancellation?
+        </button>
+      </h2>
+      <div id="collapseEignt" class="accordion-collapse collapse" aria-labelledby="headingEignt" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p>Yes, you may get the refund on ticket cancelation. Refunds will be made to you subject to applicable cancellation charges and will be credited to the source of payment (Wallet, credit/debit card)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 {% endblock content %}
