@@ -39,11 +39,12 @@ $ python run.py
 
 - [x] Create User DataBase to store User Details.
 - [ ] User Authentication via E-Mail.
-- [ ] Home Page GUI
+- [x] Home Page GUI
 - [x] Ability to book Bus Passes
 - [ ] Ability to book Bus Tickets
 - [x] Giving users the ability to change their Username, E-Mail and Profile Picture.
 - [ ] Integrating the Website with a Payment Gateway.
+- [x] Transactions using DigiBus Wallet
 - [ ] Administrator privileges for accessing user data and monitoring transactions.
 
 
