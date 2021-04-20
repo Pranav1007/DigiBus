@@ -87,8 +87,7 @@ def passbooking():
         if(form.pass_type.data == "Annualy"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
             price = 366*5 + 10*5 + current_user.id
-        flash(end_date)
-        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
+        user_pass = Pass(city=form.city.data, source=form.fromaddress.data, expiry=end_date, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
         db.session.add(user_pass)
         db.session.commit()
         flash(f'Continue your payment', 'success')
@@ -182,10 +181,16 @@ def terms_privacy():
 @app.route('/delete/<int:id>')
 @login_required
 def delete(id):
+    current_user.wallet = current_user.wallet + (Pass.query.filter_by(id=id).all()[0].price * 90/100)
     Pass.query.filter_by(id=id).delete()
     db.session.commit()
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return redirect('/viewpass')
 
-
-        
+@app.route('/wallet')
+@login_required
+def wallet():
+    user = User.query.get(current_user.id)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    #return render_template('wallet.html', title='Wallet Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
+    return render_template('wallet.html', title='Wallet Details', image_file=image_file, user=user)

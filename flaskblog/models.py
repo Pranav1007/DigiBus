@@ -17,9 +17,10 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default = 'default1.jpg')
     password = db.Column(db.String(60), nullable=False)
     passes = db.relationship('Pass', backref='author', lazy=True)
+    wallet = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"User('{self.fullname}','{self.username}','{self.email}','{self.image_file}')"
+        return f"User('{self.fullname}','{self.username}','{self.email}','{self.image_file}', '{self.wallet})"
 
 class Pass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,8 +30,18 @@ class Pass(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Integer, nullable=False, default=200)
     pass_type = db.Column(db.String(100), nullable=False)
-    booking_date = db.Column(db.DateTime, default=datetime.now)
+    booking_date = db.Column(db.DateTime, nullable=False,default=datetime.now)
+    expiry = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"User Pass('{self.source}', '{self.dest}', '{self.date}', '{self.user_id})"
+        return f"User Pass('{self.source}', '{self.dest}', '{self.date}', '{self.user_id}', '{self.id}')"
+
+
+def init_db():
+    db.create_all()
+    db.session.commit()
+    
+if __name__ == '__main__':
+    init_db()
+

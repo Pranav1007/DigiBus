@@ -1,0 +1,44 @@
+{% extends "layout1.html" %}
+{% block content %}
+<div class="container">
+<!-- Breadcrumb -->
+  <div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Wallet Details</li>
+        </ol>
+    </nav>
+  </div>
+
+    <div class="card mx-auto" style="width: 50rem;">
+      <h5 class="card-header text-center">My Wallet Details</h5>
+      <img src="{{ image_file }}" class="rounded-circle account-img mx-auto my-4" style="width: 10rem;">
+          <div class="card mx-auto my-4" style="width: 35rem;">
+            <div class="card-body my-2">
+              <div class="row">
+                <div class="col-sm">
+                  <p class="fw-bold">Name</p>
+                  <p class="fw-bold">Username</p>  
+                  <p class="fw-bold">Email</p>
+                  <p class="fw-bold">Wallet Balance</p>
+                </div>
+                <div class="col-sm">
+                  <p class="fw-bold">:</p>  
+                  <p class="fw-bold">:</p> 
+                  <p class="fw-bold">:</p>
+                  <p class="fw-bold">:</p>
+                </div>
+                <div class="col-sm">
+                  <p class="fw-normal">{{ user.fullname }}</p>  
+                  <p class="fw-normal">{{ user.username }}</p>
+                  <p class="fw-normal">{{ user.email }}</p>
+                  <p class="fw-normal">Rs. {{ user.wallet }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+{% endblock content %}
