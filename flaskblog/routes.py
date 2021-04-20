@@ -180,15 +180,18 @@ def account():
 
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-
 @app.route('/payment')
 @login_required
 def payment():
+    form = PaymentForm()
     global ans
     if ans == True:
         ans = False
+    if form.validate_on_submit():
+        flash(f'Money added to Wallet Successfully!', 'success')
+        return redirect(url_for('buypass'))
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('payment.html', title='Payment', image_file=image_file)
+    return render_template('payment.html', title='Payment', image_file=image_file, form=form)
 
 @app.route('/viewpass')
 @login_required
@@ -342,13 +345,5 @@ def cancel():
     else:
         return redirect('home')
 
-@app.route('/payment')
-@login_required
-def payment():
-    form = PaymentForm()
-    if form.validate_on_submit():
-        flash(f'Money added to Wallet Successfully!', 'success')
-        return redirect(url_for('buypass'))
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('payment.html', title='Payment', image_file=image_file, form=form)
+
 
