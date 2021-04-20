@@ -27,11 +27,11 @@ class Pass(db.Model):
     city = db.Column(db.String(100), nullable=False)
     source = db.Column(db.String(100), nullable=False)
     dest = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
     price = db.Column(db.Integer, nullable=False, default=200)
     pass_type = db.Column(db.String(100), nullable=False)
     booking_date = db.Column(db.DateTime, nullable=False,default=datetime.now)
-    expiry = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    expiry = db.Column(db.DateTime, nullable=False, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

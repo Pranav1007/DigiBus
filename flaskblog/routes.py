@@ -7,6 +7,7 @@ from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Pass
 from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, PassbookingForm, UpdateAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 
 posts = [
     {
@@ -163,8 +164,12 @@ def viewpass():
     user = User.query.get(current_user.id)
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
+        for upass in user_pass:
+            if upass.expiry.date() <= datetime.now().date():
+                    Pass.query.filter_by(id=upass.id).delete()
+                    db.session.commit()
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass,date_now=datetime.now())
     else:
         flash('No Passes Booked', 'danger')
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
