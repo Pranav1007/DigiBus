@@ -5,7 +5,7 @@ import dateutil.relativedelta
 from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Pass
-from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, PassbookingForm, UpdateAccountForm
+from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, PassbookingForm, UpdateAccountForm, PaymentForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 
@@ -52,13 +52,13 @@ def contact():
     if current_user.is_authenticated:
         if form.validate_on_submit():
             flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('contact'))
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template('contact.html', title='Contact Us', form=form, image_file=image_file)
     else:
         if form.validate_on_submit():
             flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('contact'))
         return render_template('contact.html', title='Contact Us', form=form)
 
 @app.route('/support')
@@ -131,11 +131,7 @@ def account():
 
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-@app.route('/payment')
-@login_required
-def payment():
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('payment.html', title='Payment', image_file=image_file)
+
 
 @app.route('/viewpass')
 @login_required
@@ -244,3 +240,13 @@ def cancel():
     db.session.commit()
     flash("Transaction canceled by User","danger")
     return redirect('passbooking')
+
+@app.route('/payment')
+@login_required
+def payment():
+    form = PaymentForm()
+    if form.validate_on_submit():
+        flash(f'Money added to Wallet Successfully!', 'success')
+        return redirect(url_for('buypass'))
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('payment.html', title='Payment', image_file=image_file, form=form)

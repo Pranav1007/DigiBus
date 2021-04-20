@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateField
 from flaskblog.models import User
@@ -34,8 +34,7 @@ class ContactForm(FlaskForm):
     fullname = StringField('Fullname', validators=[DataRequired()])
     number = StringField('Mobile Number', validators=[DataRequired(), Length(min=10, max=10)])
     email = StringField('Email ID',validators=[DataRequired(), Email()])
-    query = StringField('Enter your Query', validators=[DataRequired()])
-    remember = BooleanField('Do you have DigiBus Account')
+    query = TextAreaField('Enter your Query', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class PassbookingForm(FlaskForm):
@@ -63,3 +62,11 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
+
+class PaymentForm(FlaskForm):
+    amount = StringField('Amount to be added to wallet :', validators=[DataRequired()])
+    cardname = StringField('Name on Card :', validators=[DataRequired()])
+    cardnumber = StringField('Card Number :', validators=[DataRequired(), Length(min=16, max=16)])
+    expirydate = StringField('Expiry Date :', validators=[DataRequired()])
+    cvvnumber = PasswordField('CVV :', validators=[DataRequired(), Length(min=3, max=3)])
+    submit = SubmitField('Continue to Checkout')
