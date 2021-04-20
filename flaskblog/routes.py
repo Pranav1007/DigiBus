@@ -10,6 +10,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 
 price_pay = 0
+ans = False
 
 posts = [
     {
@@ -41,6 +42,14 @@ def save_picture(form_picture):
 @app.route('/')
 @app.route('/home',  methods=['GET', 'POST'])
 def home():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     if current_user.is_authenticated:
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template( 'index.html', title='Book Tickets Online', image_file=image_file)
@@ -49,6 +58,14 @@ def home():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     if current_user.is_authenticated:
         if form.validate_on_submit():
             flash(f'Thank you for Contacting. We will get back to you soon.', 'success')
@@ -63,6 +80,14 @@ def contact():
 
 @app.route('/support')
 def support():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('support.html', title='Support', image_file=image_file)
 
@@ -70,6 +95,14 @@ def support():
 @app.route('/ticketbooking')
 @login_required
 def ticketbooking():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('ticketbooking.html', posts=posts, title='Ticket Booking', image_file=image_file)
 
@@ -106,12 +139,28 @@ def login():
 
 @app.route("/logout")
 def logout():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     logout_user()
     return redirect(url_for('home'))
 
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -132,10 +181,26 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
+@app.route('/payment')
+@login_required
+def payment():
+    global ans
+    if ans == True:
+        ans = False
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('payment.html', title='Payment', image_file=image_file)
 
 @app.route('/viewpass')
 @login_required
 def viewpass():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     user = User.query.get(current_user.id)
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
@@ -153,6 +218,14 @@ def viewpass():
 
 @app.route('/terms_privacy')
 def terms_privacy():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
     if current_user.is_authenticated:
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template( 'terms_privacy.html', title='Terms and Privacy', image_file=image_file)
@@ -161,17 +234,30 @@ def terms_privacy():
 @app.route('/delete/<int:id>')
 @login_required
 def delete(id):
-    current_user.wallet = current_user.wallet + (Pass.query.filter_by(id=id).all()[0].price * 90/100)
-    Pass.query.filter_by(id=id).delete()
-    db.session.commit()
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return redirect('/viewpass')
+        global ans
+        if ans == True:
+            user = User.query.get(current_user.id)
+            user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+            pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+            Pass.query.filter_by(id=pass_id).delete()
+            db.session.commit()
+            ans = False
+        
+        if Pass.query.all():
+            current_user.wallet = current_user.wallet + (Pass.query.filter_by(id=id).all()[0].price * 90/100)
+            Pass.query.filter_by(id=id).delete()
+            db.session.commit()
+            return redirect('/viewpass')
+        else:
+            return redirect('/home')
 
 @app.route('/passbooking', methods=['GET', 'POST'])
 @login_required
 def passbooking():
     form = PassbookingForm()
     user = User.query.get(current_user.id)
+    global ans
+    ans = True
     if form.validate_on_submit():
         global price_pay
         if(form.pass_type.data == "Monthly"):
@@ -191,7 +277,7 @@ def passbooking():
         db.session.add(user_pass)
         db.session.commit()
         flash(f'Continue your payment', 'primary')
-        return redirect('buypass')
+        return redirect('/buypass')
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
 
@@ -206,40 +292,55 @@ def wallet():
 @app.route('/buypass')
 @login_required
 def buypass():
-    user = User.query.get(current_user.id)
-    pass_det = Pass.query.order_by(Pass.id.desc()).all()[0]
-    global price_pay
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user, amount=price_pay)
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        pass_det = Pass.query.order_by(Pass.id.desc()).all()[0]
+        global price_pay
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user, amount=price_pay)
+    else :
+        return redirect('home')
 
 @app.route('/confirm')
 @login_required
 def confirm():
-    user = User.query.get(current_user.id)
-    user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
-    global price_pay    
-    if current_user.wallet < price_pay :
-        flash("Insufficient Balance Please Refill your wallet","danger")
-        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
-        Pass.query.filter_by(id=pass_id).delete()
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        global price_pay    
+        if current_user.wallet < price_pay :
+            flash("Insufficient Balance Please Refill your wallet","danger")
+            pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+            if Pass.query.filter_by(id=pass_id):
+                Pass.query.filter_by(id=pass_id).delete()
+                db.session.commit()
+                return redirect('wallet')
+        current_user.wallet = current_user.wallet - price_pay
         db.session.commit()
-        return redirect('wallet')
-    current_user.wallet = current_user.wallet - price_pay
-    db.session.commit()
-    flash("Payment Successful ","success")
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return redirect('/viewpass')
+        flash("Payment Successful ","success")
+        ans = False
+        return redirect('/viewpass')
+    else :
+        return redirect('/home')
+
 
 @app.route('/cancel')
 @login_required
 def cancel():
-    user = User.query.get(current_user.id)
-    user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
-    pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
-    Pass.query.filter_by(id=pass_id).delete()
-    db.session.commit()
-    flash("Transaction canceled by User","danger")
-    return redirect('passbooking')
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
+        flash("Transaction canceled by User","danger")
+        return redirect('passbooking')
+    else:
+        return redirect('home')
 
 @app.route('/payment')
 @login_required
@@ -250,3 +351,4 @@ def payment():
         return redirect(url_for('buypass'))
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('payment.html', title='Payment', image_file=image_file, form=form)
+
