@@ -11,6 +11,7 @@ from datetime import datetime
 
 price_pay = 0
 ans = False
+flag = False
 
 posts = [
     {
@@ -268,13 +269,9 @@ def passbooking():
     form = PassbookingForm()
     user = User.query.get(current_user.id)
     global ans
-    ans = True
     if form.validate_on_submit():
         global price_pay
-        if user.wallet < price_pay:
-            flash("Insufficient Balance in the Wallet. Balance is {} but you have to pay {}".format(user.wallet,price_pay),'danger')
-            ans = False
-            return redirect('wallet')
+        ans = True
         if(form.pass_type.data == "Monthly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
             price = 30*5 + 30*3 + current_user.id
@@ -287,6 +284,10 @@ def passbooking():
         if(form.pass_type.data == "Annualy"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
             price = 366*5 + 10*5 + current_user.id
+        if user.wallet < price:
+            flash("Insufficient Balance in the Wallet. Balance is {} but you have to pay {}".format(user.wallet,price),'danger')
+            ans = False
+            return redirect('wallet')
         user_pass = Pass(city=form.city.data, source=form.fromaddress.data, expiry=end_date, dest=form.toaddress.data, date=form.date.data, user_id=current_user.id, pass_type=form.pass_type.data,price=price)
         price_pay = price
         db.session.add(user_pass)
@@ -355,7 +356,7 @@ def cancel():
         db.session.commit()
         ans = False
         flash("Transaction canceled by User","danger")
-        return redirect('passbooking')
+        return redirect('home')
     else:
         flash(f"Transaction canceled by User","success")
         return redirect('home')

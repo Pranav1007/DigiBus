@@ -58,7 +58,7 @@
                   <!--Pass.query.filter_by(id=pass.id).delete()-->
                 </div>
                 {% if pass.date.date() > date_now.date() %}
-                    <div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete ₹ {{ (pass.price*90/100) }} will be added to your account</button></a></div>
+                    <div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete</button></a></div>
                     <!--<div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount ₹' + int(pass.price*90/100) + ' will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete</button></a></div>-->
                 {% endif %}
 
