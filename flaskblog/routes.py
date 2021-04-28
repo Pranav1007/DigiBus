@@ -184,14 +184,33 @@ def account():
 @login_required
 def payment():
     global ans
+    flash(ans)
     if ans == True:
+        flash(f'Do not refresh the page or go back','danger')
         ans = False
-    form = PaymentForm()
-    if form.validate_on_submit():
-        flash(f'Money added to Wallet Successfully!', 'success')
-        return redirect(url_for('buypass'))
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('payment.html', title='Payment', image_file=image_file, form=form)
+        form = PaymentForm()
+        if form.validate_on_submit():
+            current_user.wallet += int(form.amount.data)
+            db.session.commit()
+            flash(f'Money added to Wallet Successfully!', 'success')
+            return redirect(url_for('buypass'))
+        else:
+            user = User.query.get(current_user.id)
+            user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+            pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+            Pass.query.filter_by(id=pass_id).delete()
+            db.session.commit()
+            image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+            return render_template('payment.html', title='Payment', image_file=image_file, form=form)
+    else:
+        form = PaymentForm()
+        if form.validate_on_submit():
+            current_user.wallet += int(form.amount.data)
+            db.session.commit()
+            flash(f'Money added to Wallet Successfully!', 'success')
+            return redirect(url_for('wallet'))
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template('payment.html', title='Payment', image_file=image_file, form=form)
 
 @app.route('/viewpass')
 @login_required
@@ -252,6 +271,7 @@ def delete(id):
             db.session.commit()
             return redirect('/viewpass')
         else:
+            flash(f'Error Occured. Please Try Again', 'danger')
             return redirect('/home')
 
 @app.route('/passbooking', methods=['GET', 'POST'])
@@ -296,6 +316,7 @@ def wallet():
 @login_required
 def buypass():
     global ans
+    flash(ans)
     if ans == True:
         user = User.query.get(current_user.id)
         pass_det = Pass.query.order_by(Pass.id.desc()).all()[0]
@@ -303,6 +324,7 @@ def buypass():
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
         return render_template('buypass.html', title='Buy Pass', image_file=image_file, user=user, amount=price_pay)
     else :
+        flash(f'Error Occured. Please Try Again', 'danger')
         return redirect('home')
 
 @app.route('/confirm')
@@ -326,6 +348,7 @@ def confirm():
         ans = False
         return redirect('/viewpass')
     else :
+        flash(f'Error Occured. Please Try Again', 'danger')
         return redirect('/home')
 
 
@@ -343,6 +366,7 @@ def cancel():
         flash("Transaction canceled by User","danger")
         return redirect('passbooking')
     else:
+        flash(f"Transaction canceled by User","success")
         return redirect('home')
 
 
