@@ -1,9 +1,10 @@
 {% extends "layout1.html" %}
 {% block content %}
 <div class="mx-auto" style="max-width: 900px;">
-  <form class="needs-validation" novalidate="">
+  <form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <feildset class="form-group">
       <h4 class="my-4">Payment</h4>
-
       <div class="my-4">
         <div class="form-check">
           <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
@@ -27,7 +28,16 @@
         </div>
         <div class="col-md-6">
           {{ form.cardnumber.label(class="form-control-label") }}
-          {{ form.cardnumber(class="form-control form-control-lg") }}
+          {% if form.cardnumber.errors %}
+              {{ form.cardnumber(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.cardnumber.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ form.cardnumber(class="form-control form-control-lg") }}
+          {% endif %} 
         </div>
         <div class="col-md-3">
           {{ form.expirydate.label(class="form-control-label") }}
@@ -51,6 +61,7 @@
       <div class=" text-center form-group mb-3">
         {{ form.submit(class="btn btn-outline-success") }}
       </div>
-    </form>
+    </feildset>
+  </form>
 </div>
 {% endblock content %}

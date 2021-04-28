@@ -180,13 +180,13 @@ def account():
 
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-@app.route('/payment')
+@app.route('/payment', methods=['GET', 'POST'])
 @login_required
 def payment():
-    form = PaymentForm()
     global ans
     if ans == True:
         ans = False
+    form = PaymentForm()
     if form.validate_on_submit():
         flash(f'Money added to Wallet Successfully!', 'success')
         return redirect(url_for('buypass'))
