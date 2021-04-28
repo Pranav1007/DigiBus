@@ -42,7 +42,7 @@ class PassbookingForm(FlaskForm):
     fromaddress = SelectField('From :', validators=[DataRequired()], choices=[("Potheri","Potheri"),("Kattangulathur","Kattangulathur")])
     toaddress = SelectField('To :', validators=[DataRequired()], choices=[("Tambaram","Tambaram"),("Chennai Egmore","Chennai Egmore")])
     date = DateField('Date :', validators=[DataRequired()])
-    pass_type = SelectField('To :', validators=[DataRequired()], choices=[("Monthly"),("Quarterly"),("Half-Yearly"),("Annualy")])
+    pass_type = SelectField('Pass Validity :', validators=[DataRequired()], choices=[("Monthly"),("Quarterly"),("Half-Yearly"),("Annualy")])
     submit = SubmitField('Proceed to Payment')
 
 class UpdateAccountForm(FlaskForm):
@@ -67,6 +67,6 @@ class PaymentForm(FlaskForm):
     amount = StringField('Amount to be added to wallet :', validators=[DataRequired()])
     cardname = StringField('Name on Card :', validators=[DataRequired()])
     cardnumber = StringField('Card Number :', validators=[DataRequired(), Length(min=16, max=16)])
-    expirydate = StringField('Expiry Date :', validators=[DataRequired()])
+    expirydate = DateField('Expiry Date :', validators=[DataRequired()])
     cvvnumber = PasswordField('CVV :', validators=[DataRequired(), Length(min=3, max=3)])
     submit = SubmitField('Continue to Checkout')

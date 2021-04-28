@@ -254,7 +254,7 @@ def delete(id):
             ans = False
         
         if Pass.query.all():
-            current_user.wallet = current_user.wallet + (Pass.query.filter_by(id=id).all()[0].price * 90/100)
+            current_user.wallet = current_user.wallet + int(Pass.query.filter_by(id=id).all()[0].price * 90/100)
             Pass.query.filter_by(id=id).delete()
             db.session.commit()
             return redirect('/viewpass')
@@ -273,6 +273,7 @@ def passbooking():
         global price_pay
         if user.wallet < price_pay:
             flash("Insufficient Balance in the Wallet. Balance is {} but you have to pay {}".format(user.wallet,price_pay),'danger')
+            ans = False
             return redirect('wallet')
         if(form.pass_type.data == "Monthly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)

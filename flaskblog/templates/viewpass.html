@@ -52,14 +52,14 @@
                   <p class="fw-normal">{{ date_now.date() }}</p>
                   <p class="fw-normal">{{ pass.date.date() }}</p>
                   <p class="fw-normal">{{ pass.expiry.date() }}</p>
-                  <p class="fw-normal">Rs {{ pass.price }}</p>
+                  <p class="fw-normal">₹ {{ pass.price }}</p>
                   <p class="fw-normal">{{ pass.pass_type }}</p>
                   <p class="fw-normal">{{ pass.booking_date.strftime("%Y-%m-%d %H:%M:%S") }}</p>
-                  
                   <!--Pass.query.filter_by(id=pass.id).delete()-->
                 </div>
                 {% if pass.date.date() > date_now.date() %}
-                    <div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete</button></a></div>
+                    <div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete ₹ {{ (pass.price*90/100) }} will be added to your account</button></a></div>
+                    <!--<div class="text-center"><a href="/delete/{{ pass.id }}" onclick="return confirm('Are you sure? Amount ₹' + int(pass.price*90/100) + ' will be added to your DigiBus Wallet')"><button class="btn btn-outline-danger">Delete</button></a></div>-->
                 {% endif %}
 
               </div>
