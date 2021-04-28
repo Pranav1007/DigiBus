@@ -42,7 +42,7 @@ class PassbookingForm(FlaskForm):
     fromaddress = SelectField('From :', validators=[DataRequired()], choices=[("Potheri","Potheri"),("Kattangulathur","Kattangulathur")])
     toaddress = SelectField('To :', validators=[DataRequired()], choices=[("Tambaram","Tambaram"),("Chennai Egmore","Chennai Egmore")])
     date = DateField('Date :', validators=[DataRequired()])
-    pass_type = SelectField('Pass Validity :', validators=[DataRequired()], choices=[("Monthly"),("Quarterly"),("Half-Yearly"),("Annualy")])
+    pass_type = SelectField('Pass Validity :', validators=[DataRequired()], choices=[("Monthly"),("Quarterly"),("Half-Yearly"),("Annually")])
     submit = SubmitField('Proceed to Payment')
 
 class UpdateAccountForm(FlaskForm):
