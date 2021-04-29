@@ -30,6 +30,39 @@ To run the file
 $ python run.py
 ```
 
+## Website Demo
+
+### Home Page
+![image](https://user-images.githubusercontent.com/70643852/116508446-07627b00-a8df-11eb-9c79-0e39811165ac.png)
+
+### SignUp Page:
+![image](https://user-images.githubusercontent.com/70643852/116508469-15180080-a8df-11eb-88a5-a2350aff65d5.png)
+
+### Logging In after Signing Up
+![image](https://user-images.githubusercontent.com/70643852/116508768-ad15ea00-a8df-11eb-8682-cb0789001519.png)
+
+### User Account Page
+![image](https://user-images.githubusercontent.com/70643852/116508574-4d1f4380-a8df-11eb-9e97-8ef59cb400ea.png)
+
+## User Wallet Page
+![image](https://user-images.githubusercontent.com/70643852/116508970-15fd6200-a8e0-11eb-967e-7dccaf831599.png)
+
+### Sample Payment Gateway to add money to wallet
+![image](https://user-images.githubusercontent.com/70643852/116509047-39281180-a8e0-11eb-9c88-c2b54dac8f71.png)
+
+### Booking a Bus Pass
+![image](https://user-images.githubusercontent.com/70643852/116509239-99b74e80-a8e0-11eb-9550-62d24a0cc3c1.png)
+
+### Payment Confirmation Page
+![image](https://user-images.githubusercontent.com/70643852/116509291-a9cf2e00-a8e0-11eb-959c-cb15ccfcdb77.png)
+
+### Booked Pass Details Confirmation
+![image](https://user-images.githubusercontent.com/70643852/116509344-bd7a9480-a8e0-11eb-8f39-88f656c18e20.png)
+
+### After Deleting the Pass
+![image](https://user-images.githubusercontent.com/70643852/116509384-cec3a100-a8e0-11eb-9423-f34db5f753c6.png)
+
+
 ## Tech Stacks:
 * For the frontend we have used HTML, CSS along with Bootstrap.
 * For the backend we are using flask as our microframe-work.
