@@ -265,7 +265,7 @@ def passbooking():
         if(form.pass_type.data == "Half-Yearly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+6)
             price = 180*5 + 10*5 + current_user.id
-        if(form.pass_type.data == "Annualy"):
+        if(form.pass_type.data == "Annually"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+12)
             price = 366*5 + 10*5 + current_user.id
         if user.wallet < price:
