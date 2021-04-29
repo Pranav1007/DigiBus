@@ -255,7 +255,6 @@ def passbooking():
     global ans
     if form.validate_on_submit():
         global price_pay
-        ans = True
         if(form.pass_type.data == "Monthly"):
             end_date = form.date.data + dateutil.relativedelta.relativedelta(months=+1)
             price = 30*5 + 30*3 + current_user.id
@@ -276,8 +275,8 @@ def passbooking():
         price_pay = price
         db.session.add(user_pass)
         db.session.commit()
-        ans = True
         flash(f'Continue your payment', 'primary')
+        ans = True
         return redirect('/buypass')
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('passbooking.html', title='Pass Booking', form=form, image_file=image_file)
