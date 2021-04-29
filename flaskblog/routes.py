@@ -276,6 +276,7 @@ def passbooking():
         price_pay = price
         db.session.add(user_pass)
         db.session.commit()
+        ans = True
         flash(f'Continue your payment', 'primary')
         return redirect('/buypass')
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
