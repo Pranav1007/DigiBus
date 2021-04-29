@@ -48,9 +48,8 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Booking
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('ticketbooking') }}">Ticket Booking</a>
-                            </li>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ url_for('ticketbooking') }}">Ticket Booking</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('passbooking') }}">Pass Booking</a></li>
                         </ul>
                     </li>
@@ -68,7 +67,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ image_file }}" height="30" class="rounded-circle d-inline-block align-top">
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ url_for('account') }}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ url_for('viewpass') }}">View Pass Details</a></li>
                                 <li><a class="dropdown-item" href="{{ url_for('wallet') }}">DigiBus Wallet</a></li>

@@ -93,22 +93,6 @@ def support():
     return render_template('support.html', title='Support', image_file=image_file)
 
 
-@app.route('/ticketbooking')
-@login_required
-def ticketbooking():
-    global ans
-    if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
-        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
-        Pass.query.filter_by(id=pass_id).delete()
-        db.session.commit()
-        ans = False
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('ticketbooking.html', posts=posts, title='Ticket Booking', image_file=image_file)
-
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
@@ -361,5 +345,19 @@ def cancel():
         flash(f"Transaction canceled by User","success")
         return redirect('home')
 
-
+@app.route('/')
+@app.route('/ticketbooking',  methods=['GET', 'POST'])
+def ticketbooking():
+    global ans
+    if ans == True:
+        user = User.query.get(current_user.id)
+        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
+        Pass.query.filter_by(id=pass_id).delete()
+        db.session.commit()
+        ans = False
+    if current_user.is_authenticated:
+        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        return render_template( 'ticketbooking.html', title='Ticketbooking', image_file=image_file)
+    return render_template('ticketbooking.html', title='Ticketbooking')
 
