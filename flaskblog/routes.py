@@ -4,7 +4,7 @@ from PIL import Image
 import dateutil.relativedelta
 from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
-from flaskblog.models import User, Pass
+from flaskblog.models import Consumer, Pass
 from flaskblog.forms import RegistrationForm, LoginForm, ContactForm, PassbookingForm, UpdateAccountForm, PaymentForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
@@ -45,8 +45,8 @@ def save_picture(form_picture):
 def home():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -61,8 +61,8 @@ def contact():
     form = ContactForm()
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -83,8 +83,8 @@ def contact():
 def support():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -100,7 +100,7 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(fullname=form.fullname.data, username=form.username.data, email=form.email.data, password=hashed_password)
+        user = Consumer(fullname=form.fullname.data, username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created. You can now login', 'success')
@@ -113,7 +113,7 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = Consumer.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
@@ -126,8 +126,8 @@ def login():
 def logout():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -140,8 +140,8 @@ def logout():
 def account():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -171,8 +171,8 @@ def payment():
     global ans
     if ans == True:
         ans = False
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -190,13 +190,13 @@ def payment():
 def viewpass():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
         ans = False
-    user = User.query.get(current_user.id)
+    user = Consumer.query.get(current_user.id)
     user_pass = Pass.query.filter_by(user_id=user.id).all()
     if user_pass:
         for upass in user_pass:
@@ -204,7 +204,7 @@ def viewpass():
                     Pass.query.filter_by(id=upass.id).delete()
                     db.session.commit()
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass,date_now=datetime.now())
+        return render_template('viewpass.html', title='Pass Details', image_file=image_file,pass_det=user_pass,user_id=Consumer.query.get(current_user.id).id, Pass = Pass,date_now=datetime.now())
     else:
         flash('No Passes Booked', 'danger')
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
@@ -215,8 +215,8 @@ def viewpass():
 def terms_privacy():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -231,8 +231,8 @@ def terms_privacy():
 def delete(id):
         global ans
         if ans == True:
-            user = User.query.get(current_user.id)
-            user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+            user = Consumer.query.get(current_user.id)
+            user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
             pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
             Pass.query.filter_by(id=pass_id).delete()
             db.session.commit()
@@ -251,7 +251,7 @@ def delete(id):
 @login_required
 def passbooking():
     form = PassbookingForm()
-    user = User.query.get(current_user.id)
+    user = Consumer.query.get(current_user.id)
     global ans
     if form.validate_on_submit():
         global price_pay
@@ -284,9 +284,9 @@ def passbooking():
 @app.route('/wallet')
 @login_required
 def wallet():
-    user = User.query.get(current_user.id)
+    user = Consumer.query.get(current_user.id)
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    #return render_template('wallet.html', title='Wallet Details', image_file=image_file,pass_det=user_pass,user_id=User.query.get(current_user.id).id, Pass = Pass)
+    #return render_template('wallet.html', title='Wallet Details', image_file=image_file,pass_det=user_pass,user_id=Consumer.query.get(current_user.id).id, Pass = Pass)
     return render_template('wallet.html', title='Wallet Details', image_file=image_file, user=user)
 
 @app.route('/buypass')
@@ -294,7 +294,7 @@ def wallet():
 def buypass():
     global ans
     global price_pay
-    user = User.query.get(current_user.id)
+    user = Consumer.query.get(current_user.id)
     pass_det = Pass.query.order_by(Pass.id.desc()).all()[0]
     if ans == True:
         image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
@@ -309,8 +309,8 @@ def confirm():
     global ans
     if ans == True:
         ans = False
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         global price_pay    
         if current_user.wallet < price_pay :
             flash("Insufficient Balance Please Refill your wallet","danger")
@@ -333,8 +333,8 @@ def confirm():
 def cancel():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
@@ -350,8 +350,8 @@ def cancel():
 def ticketbooking():
     global ans
     if ans == True:
-        user = User.query.get(current_user.id)
-        user_wallet = User.query.filter_by(id=current_user.id).all()[0].wallet
+        user = Consumer.query.get(current_user.id)
+        user_wallet = Consumer.query.filter_by(id=current_user.id).all()[0].wallet
         pass_id = Pass.query.order_by(Pass.id.desc()).all()[0].id
         Pass.query.filter_by(id=pass_id).delete()
         db.session.commit()
