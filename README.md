@@ -80,16 +80,38 @@ $ python app.py
 - [x] Transactions using DigiBus Wallet
 - [ ] Administrator privileges for accessing user data and monitoring transactions.
 
+## License 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+<br/>
+This project is under the Apache 2.0 License. See [LICENSE](LICENSE) for Details.
 
 ## Contributors
 
 <table>
   <tr>
    <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/jayesh.png" width="210px;" height="230px;" alt=""/><br /><sub><b>Jayesh Locharla</b></sub></a><br />
+  <br/>
+   <p align="center">
+   <a href="https://github.com/JayeshLocharla" alt="Github">
+     <img src="http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width = "30">
+  </a>
+  </p>
 </td>
    <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/mansoor.png" width="210px;" height="230px;"  alt=""/><br/><sub><b>Sayyed Mansoor Ahmed</b></sub></a><br />
+   <br/>
+   <p align="center">
+   <a href="https://github.com/Sayyed-AlMansoor" alt="Github">
+     <img src="http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width = "30">
+  </a>
+  </p>
 </td>
    <td align="center"><img src="https://github.com/Pranav1007/DigiBus/blob/main/Images/pranav.png" width="210px"; height="230px;" alt=""/><br /><sub><b>Pranav B Kashyap</b></sub></a><br />
+   <br/>
+   <p align="center">
+   <a href="https://github.com/Pranav1007" alt="Github">
+     <img src="http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width = "30">
+  </a>
+  </p>
 </td>
     </tr>
     </table>
