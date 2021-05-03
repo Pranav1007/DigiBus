@@ -24,7 +24,7 @@ To install run:
 $ pip install -r requirements.txt
 ```
 
-- Run the run.py file now
+- Run the app.py file now
 To run the file
 ```python
 $ python app.py
