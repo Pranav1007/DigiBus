@@ -7,25 +7,21 @@ DigiBus aims to provide people with a suitable alternative to purchasing bus pas
 
 ## How to Use the Website:
 - Clone the GitHub repository
-To clone run:
 ```python
 $ git clone git@github.com:Pranav1007/DigiBus.git
 ```
 
 - Move to the Project Directory
-To enter run
 ```python
 $ cd DigiBus
 ```
 
 - All the [requirements](requirements.txt) and dependencies need to be installed. 
-To install run:
 ```python
 $ pip install -r requirements.txt
 ```
 
 - Run the app.py file now
-To run the file
 ```python
 $ python app.py
 ```
